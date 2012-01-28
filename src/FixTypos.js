@@ -56,7 +56,7 @@ function addButton() {
 						}
 						$edit.val( newText );
 						$( '#wpMinoredit' ).attr('checked', true);
-						$( '#wpSummary' ).val( 'Correção de erros tipográficos' );
+						$( '#wpSummary' ).val( 'Correção de [[w:WP:AWBT|erros tipográficos]]' );
 						$( '#wpDiff' ).click();
 					}
 				}
