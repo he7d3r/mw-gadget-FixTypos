@@ -57,7 +57,7 @@ function addButton() {
 						$edit.val( newText );
 						$( '#wpMinoredit' ).attr('checked', true);
 						$( '#wpSummary' ).val( 'Correção de erros tipográficos' );
-						$( '#wpDiff' ).submit();
+						$( '#wpDiff' ).click();
 					}
 				}
 			}
