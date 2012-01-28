@@ -3,6 +3,7 @@
  * (Simplificação do [[w:en:User:Cacycle/wikEd.js]])
  * @author: [[w:en:User:Cacycle/wikEd.js]]
  * @author: [[User:Helder.wiki]]
+ * @source: [[Special:GlobalUsage/User:Helder.wiki/Scripts/FixTypos.js]] ([[File:User:Helder.wiki/Scripts/FixTypos.js]])
  */
 var	typoRulesFind = [],
 	typoRulesReplace = [];
