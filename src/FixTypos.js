@@ -1,6 +1,8 @@
 /*
  * Insere um botão na barra de ferramentas de edição para realizar correções tipográficas
- * @source: Simplificação do [[User:Cacycle/wikEd.js]]
+ * (Simplificação do [[w:en:User:Cacycle/wikEd.js]])
+ * @author: [[w:en:User:Cacycle/wikEd.js]]
+ * @author: [[User:Helder.wiki]]
  */
 var	typoRulesFind = [],
 	typoRulesReplace = [];
@@ -9,7 +11,7 @@ var	typoRulesFind = [],
  * Fix typos using the AutoWikiBrowser/RegExTypoFix list (.test() is not faster)
  */ 
 function fixTypos(text) {
-	//	split into alternating plain text and {{lang}} template fragments (does not support nested templates)
+	//	split into alternating plain text and { {lang} } template fragments (does not support nested templates)
 	var	i, j, fragment = [],
 		nextPos = 0,
 		regExp = /\{\{\s*lang\s*\|(.|\n)*?\}\}/gi;
@@ -22,7 +24,7 @@ function fixTypos(text) {
  
 	// cycle through the RegExTypoFix rules
 	for ( i = 0; i < typoRulesFind.length; i ++) {
-		// cycle through the fragments, jump over {{lang}} templates
+		// cycle through the fragments, jump over { {lang} } templates
 		for ( j = 0; j < fragment.length; j = j + 2) {
 			fragment[j] = fragment[j].replace(typoRulesFind[i], typoRulesReplace[i]);
 		}
@@ -47,8 +49,12 @@ function addButton() {
 				action: {
 					type: 'callback',
 					execute: function() {
-						var text = $edit.val();
-						$edit.val( fixTypos( text ) );
+						var	text = $edit.val(),
+							newText = fixTypos( text );
+						if ( newText === text ) {
+							return;
+						}
+						$edit.val( newText );
 						$( '#wpMinoredit' ).attr('checked', true);
 						$( '#wpSummary' ).val( 'Correção de erros tipográficos' );
 						$( '#wpDiff' ).submit();
