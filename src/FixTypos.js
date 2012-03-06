@@ -88,7 +88,16 @@ function processText( text ) {
 
 	// display typo fix button
 	if (typoRulesFind.length > 0) {
-		$( addButton );
+		/* Check if we are in edit mode and the required modules are available and then customize the toolbar */
+		if ($.inArray(mw.config.get('wgAction'), ['edit', 'submit']) !== -1 ) {
+			if ( mw.user.options.get('usebetatoolbar') ) {
+				mw.loader.using( 'ext.wikiEditor.toolbar', function () {
+					$( addButton );
+				} );
+			} /* else {
+				// TODO: Add the button to the old toolbar
+			} */
+		}
 	} else {
 		mw.log( 'A lista de regras de correções tipográficas está vazia.' );
 	}
@@ -120,7 +129,7 @@ function loadTypoFixRules( page ) {
 }
 
 if( $.inArray( mw.config.get( 'wgAction' ), [ 'edit', 'submit' ]) !== -1 ) {
-	mw.loader.using( 'mediawiki.api', function () {
+	mw.loader.using( ['mediawiki.api', 'user.options' ], function () {
 		loadTypoFixRules( 'Project:AutoWikiBrowser/Typos' );
 	} );
 }
