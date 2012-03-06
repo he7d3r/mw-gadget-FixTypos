@@ -66,62 +66,61 @@ function addButton() {
 	} );
 }
 
+function processText( text ) {
+	// parse regexp rules
+	regExp = /<(?:Typo)?\s+(?:word="(.*?)"\s+)?find="(.*?)"\s+replace="(.*?)"\s*\/?>/g;
+	while ( (regExpMatch = regExp.exec( text )) !== null) {
+		// check if this is a valid regexp
+		var regExpFind;
+		try {
+			regExpFind = new RegExp(regExpMatch[2], 'gm');
+		} catch (err) {
+			var msg = 'Expressão regular inválida:\nlocalizar=' +
+					regExpMatch[2] + '\nsubstituir=' + regExpMatch[3];
+			mw.log( msg );
+			continue;
+		}
+
+		// save regexp and replace
+		typoRulesFind.push(regExpFind);
+		typoRulesReplace.push(regExpMatch[3]);
+	}
+
+	// display typo fix button
+	if (typoRulesFind.length > 0) {
+		$( addButton );
+	} else {
+		mw.log( 'A lista de regras de correções tipográficas está vazia.' );
+	}
+}
+
 /**
  * Load and parse RegExTypoFix rules
  */
 function loadTypoFixRules( page ) {
-
-	var processText = function ( res ) {
-		var	pages = res.query.pages,
-			pageids = res.query.pageids,
-			i, text, regExp, regExpMatch;
- 
-		for (i = 0; i < pageids.length; i++) {
-			if (!pages[ pageids[i] ].pageid) {
-				continue;
+	var api = new mw.Api();
+	api.get( {
+		action: 'query',
+		prop: 'revisions',
+		rvprop: 'content',
+		rvlimit: 1,
+		indexpageids: true,
+		titles: page
+	}, {
+		ok: function ( data ) {
+			var     q = data.query,
+				id = q && q.pageids && q.pageids[0],
+				pg = id && q.pages && q.pages[ id ],
+				rv = pg && pg.revisions;
+			if ( rv && rv[0] && rv[0]['*'] ) {
+				processText( rv[0]['*'] );
 			}
-			text = pages[ pageids[i] ].revisions[0]['*'];
-			break;
 		}
-		
-		// parse regexp rules
-		regExp = /<(?:Typo)?\s+(?:word="(.*?)"\s+)?find="(.*?)"\s+replace="(.*?)"\s*\/?>/g;
-		while ( (regExpMatch = regExp.exec( text )) !== null) {
-			// check if this is a valid regexp
-			var regExpFind;
-			try {
-				regExpFind = new RegExp(regExpMatch[2], 'gm');
-			} catch (err) {
-				var msg = 'Expressão regular inválida:\nlocalizar=' +
-						regExpMatch[2] + '\nsubstituir=' + regExpMatch[3];
-				mw.log( msg );
-				continue;
-			}
- 
-			// save regexp and replace
-			typoRulesFind.push(regExpFind);
-			typoRulesReplace.push(regExpMatch[3]);
-		}
- 
-		// display typo fix button
-		if (typoRulesFind.length > 0) {
-			$( addButton );
-		} else {
-			mw.log( 'A lista de regras de correções tipográficas está vazia.' );
-		}
-	};
-	$.getJSON(
-		mw.util.wikiScript( 'api' ), {
-			'format': 'json',
-			'action': 'query',
-			'titles': page,
-			'prop': 'revisions',
-			'rvprop': 'content',
-			'indexpageids': '1'
-		}, processText
-	);
+	} );
 }
 
 if( $.inArray( mw.config.get( 'wgAction' ), [ 'edit', 'submit' ]) !== -1 ) {
-	loadTypoFixRules( 'Project:AutoWikiBrowser/Typos' );
+	mw.loader.using( 'mediawiki.api', function () {
+		loadTypoFixRules( 'Project:AutoWikiBrowser/Typos' );
+	} );
 }
