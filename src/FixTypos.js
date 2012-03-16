@@ -1,5 +1,6 @@
 function addButton() {
 	console.debug('The code inside of addButton() was executed.');
+	return false;
 }
 
 function processText( text ) {
@@ -8,6 +9,7 @@ function processText( text ) {
 		mw.loader.using( 'ext.wikiEditor.toolbar', function () {
 			console.debug('"$( addButton )" was executed inside of mw.loader.using( \'ext.wikiEditor.toolbar\'...');
 			$( addButton );
+			return false;
 		} );
 	}
 }
@@ -24,6 +26,7 @@ function getWikiText( page ) {
 	}, {
 		ok: function ( data ) {
 			processText( data.query.pages[ data.query.pageids[0] ].revisions[0]['*'] );		}
+			return false;
 	} );
 }
 
