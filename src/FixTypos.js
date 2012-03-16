@@ -29,6 +29,6 @@ function getWikiText( page ) {
 
 if( $.inArray( mw.config.get( 'wgAction' ), [ 'edit', 'submit' ]) !== -1 ) {
 	mw.loader.using( ['mediawiki.api', 'user.options' ], function () {
-		getWikiText( 'Project:AutoWikiBrowser/Typos' );
+		getWikiText( 'Teste' );
 	} );
 }
