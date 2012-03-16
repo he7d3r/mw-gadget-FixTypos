@@ -1,42 +1,14 @@
-var	typoRulesFind = [],
-	typoRulesReplace = [];
 function addButton() {
-	console.debug('Inside addButton()');
+	console.debug('The code inside of addButton() was executed.');
 }
 
 function processText( text ) {
-	// parse regexp rules
-	regExp = /<(?:Typo)?\s+(?:word="(.*?)"\s+)?find="(.*?)"\s+replace="(.*?)"\s*\/?>/g;
-	while ( (regExpMatch = regExp.exec( text )) !== null) {
-		// check if this is a valid regexp
-		var regExpFind;
-		try {
-			regExpFind = new RegExp(regExpMatch[2], 'gm');
-		} catch (err) {
-			var msg = 'Expressão regular inválida:\nlocalizar=' +
-					regExpMatch[2] + '\nsubstituir=' + regExpMatch[3];
-			mw.log( msg );
-			continue;
-		}
-
-		// save regexp and replace
-		typoRulesFind.push(regExpFind);
-		typoRulesReplace.push(regExpMatch[3]);
-	}
-
-	// display typo fix button
-	if (typoRulesFind.length > 0) {
-		/* Check if the required modules are available and then customize the toolbar */
-		if ( mw.user.options.get('usebetatoolbar') ) {
-			mw.loader.using( 'ext.wikiEditor.toolbar', function () {
-console.debug('Calling $( addButton )...');
-				$( addButton );
-			} );
-		} /* else {
-			// TODO: Add the button to the old toolbar
-		} */
-	} else {
-		mw.log( 'A lista de regras de correções tipográficas está vazia.' );
+	/* Check if the required modules are available and then customize the toolbar */
+	if ( mw.user.options.get('usebetatoolbar') ) {
+		mw.loader.using( 'ext.wikiEditor.toolbar', function () {
+			console.debug('"$( addButton )" was executed inside of mw.loader.using( \'ext.wikiEditor.toolbar\'...');
+			$( addButton );
+		} );
 	}
 }
 
