@@ -37,7 +37,7 @@ function loadTypoFixRules( page ) {
 	} );
 }
 
-if( mw.config.get( 'wgCanonicalSpecialPageName' ) === 'Blankpage' ) {
+if( $.inArray( mw.config.get( 'wgAction' ), [ 'edit', 'submit' ]) !== -1 ) {
 	mw.loader.using( ['mediawiki.api', 'user.options' ], function () {
 		loadTypoFixRules( 'Project:AutoWikiBrowser/Typos' );
 	} );
