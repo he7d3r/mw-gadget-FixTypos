@@ -35,7 +35,8 @@ function fixTypos(text) {
 }
 
 function addButton() {
-    var $edit = $( '#wpTextbox1' );
+console.debug('Started addButton()');
+	var	$edit = $( '#wpTextbox1' );
 	if( typeof $edit.wikiEditor !== 'function' ) {
 		return;
 	}
@@ -64,6 +65,7 @@ function addButton() {
 			}
 		}
 	} );
+console.debug('Finished addButton()');
 }
 
 function processText( text ) {
