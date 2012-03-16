@@ -94,6 +94,7 @@ function processText( text ) {
 		if ($.inArray(mw.config.get('wgAction'), ['edit', 'submit']) !== -1 ) {
 			if ( mw.user.options.get('usebetatoolbar') ) {
 				mw.loader.using( 'ext.wikiEditor.toolbar', function () {
+console.debug('$( addButton );');
 					$( addButton );
 				} );
 			} /* else {
