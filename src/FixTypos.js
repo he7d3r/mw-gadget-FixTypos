@@ -1,27 +1,7 @@
 var	typoRulesFind = [],
 	typoRulesReplace = [];
 function addButton() {
-console.debug('Started addButton()');
-	var $edit = $( '#wpTextbox1' );
-	if( typeof $edit.wikiEditor !== 'function' ) {
-		return;
-	}
-	$edit.wikiEditor( 'addToToolbar', {
-		'section': 'main',
-		'group': 'insert',
-		'tools': {
-			'fix-typo': {
-				label: 'Corrigir erros tipográficos',
-				type: 'button',
-				icon: '//upload.wikimedia.org/wikipedia/commons/9/94/WikEd_fix_reg-ex-typo.png',
-				action: {
-					type: 'callback',
-					execute: function() { console.debug('button click.') }
-				}
-			}
-		}
-	} );
-console.debug('Finished addButton()');
+	console.debug('Inside addButton()');
 }
 
 function processText( text ) {
@@ -49,7 +29,7 @@ function processText( text ) {
 		/* Check if the required modules are available and then customize the toolbar */
 		if ( mw.user.options.get('usebetatoolbar') ) {
 			mw.loader.using( 'ext.wikiEditor.toolbar', function () {
-console.debug('$( addButton );');
+console.debug('Calling $( addButton )...');
 				$( addButton );
 			} );
 		} /* else {
