@@ -1,39 +1,5 @@
-/*
- * Insere um botão na barra de ferramentas de edição para realizar correções tipográficas
- * (Simplificação do [[w:en:User:Cacycle/wikEd.js]])
- * @author: [[w:en:User:Cacycle/wikEd.js]]
- * @author: [[User:Helder.wiki]]
- * @source: [[Special:GlobalUsage/User:Helder.wiki/Tools/FixTypos.js]] ([[File:User:Helder.wiki/Tools/FixTypos.js]])
- */
 var	typoRulesFind = [],
 	typoRulesReplace = [];
-
-/**
- * Fix typos using the AutoWikiBrowser/RegExTypoFix list (.test() is not faster)
- */ 
-function fixTypos(text) {
-	//	split into alternating plain text and { {lang} } template fragments (does not support nested templates)
-	var	i, j, fragment = [],
-		nextPos = 0,
-		regExp = /\{\{\s*lang\s*\|(.|\n)*?\}\}/gi;
-	while ( (regExpMatch = regExp.exec(text)) !== null ) {
-		fragment.push(text.substring(nextPos, regExpMatch.index));
-		fragment.push(regExpMatch[0]);
-		nextPos = regExp.lastIndex;
-	}
-	fragment.push(text.substring(nextPos));
- 
-	// cycle through the RegExTypoFix rules
-	for ( i = 0; i < typoRulesFind.length; i ++) {
-		// cycle through the fragments, jump over { {lang} } templates
-		for ( j = 0; j < fragment.length; j = j + 2) {
-			fragment[j] = fragment[j].replace(typoRulesFind[i], typoRulesReplace[i]);
-		}
-	} 
-	// re-assemble text
-	return fragment.join('');
-}
-
 function addButton() {
 console.debug('Started addButton()');
 	var $edit = $( '#wpTextbox1' );
@@ -50,17 +16,7 @@ console.debug('Started addButton()');
 				icon: '//upload.wikimedia.org/wikipedia/commons/9/94/WikEd_fix_reg-ex-typo.png',
 				action: {
 					type: 'callback',
-					execute: function() {
-						var	text = $edit.val(),
-							newText = fixTypos( text );
-						if ( newText === text ) {
-							return;
-						}
-						$edit.val( newText );
-						$( '#wpMinoredit' ).attr('checked', true);
-						$( '#wpSummary' ).val( 'Correção de [[m:w:pt:WP:AWBT|erros tipográficos]]' );
-						$( '#wpDiff' ).click();
-					}
+					execute: function() { console.debug('button click.') }
 				}
 			}
 		}
