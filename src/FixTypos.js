@@ -25,13 +25,15 @@ function getWikiText( page ) {
 		titles: page
 	}, {
 		ok: function ( data ) {
-			processText( data.query.pages[ data.query.pageids[0] ].revisions[0]['*'] );		}
+			processText( data.query.pages[ data.query.pageids[0] ].revisions[0]['*'] );
 			return false;
+                }
 	} );
 }
 
 if( $.inArray( mw.config.get( 'wgAction' ), [ 'edit', 'submit' ]) !== -1 ) {
 	mw.loader.using( ['mediawiki.api', 'user.options' ], function () {
 		getWikiText( 'Teste' );
+		return false;
 	} );
 }
