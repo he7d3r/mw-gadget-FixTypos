@@ -5,9 +5,9 @@
  * @author: [[User:Helder.wiki]]
  * @source: [[Special:GlobalUsage/User:Helder.wiki/Tools/FixTypos.js]] ([[File:User:Helder.wiki/Tools/FixTypos.js]])
  */
-/*global $, mw */
-/*jslint continue: true, white: true, plusplus: true, regexp: true */
-$(function () {
+/*jslint browser: true, white: true, continue: true, plusplus: true, regexp: true*/
+/*global jQuery, mediaWiki */
+( function ( $, mw /* , undefined */ ) {
 'use strict';
 
 var	typoRulesFind = [],
@@ -139,4 +139,4 @@ if( $.inArray( mw.config.get( 'wgAction' ), [ 'edit', 'submit' ]) !== -1 ) {
 	} );
 }
 
-});
+}( jQuery, mediaWiki ) );
