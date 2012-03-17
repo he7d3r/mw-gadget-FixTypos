@@ -5,6 +5,11 @@
  * @author: [[User:Helder.wiki]]
  * @source: [[Special:GlobalUsage/User:Helder.wiki/Tools/FixTypos.js]] ([[File:User:Helder.wiki/Tools/FixTypos.js]])
  */
+/*global $, mw */
+/*jslint continue: true, white: true, plusplus: true, regexp: true */
+$(function () {
+'use strict';
+
 var	typoRulesFind = [],
 	typoRulesReplace = [];
 
@@ -13,7 +18,7 @@ var	typoRulesFind = [],
  */ 
 function fixTypos(text) {
 	//	split into alternating plain text and { {lang} } template fragments (does not support nested templates)
-	var	i, j, fragment = [],
+	var	i, j, fragment = [], regExpMatch,
 		nextPos = 0,
 		regExp = /\{\{\s*lang\s*\|(.|\n)*?\}\}/gi;
 	while ( (regExpMatch = regExp.exec(text)) !== null ) {
@@ -68,15 +73,15 @@ function addButton() {
 
 function processText( text ) {
 	// parse regexp rules
-	regExp = /<(?:Typo)?\s+(?:word="(.*?)"\s+)?find="(.*?)"\s+replace="(.*?)"\s*\/?>/g;
+	var	regExp = /<(?:Typo)?\s+(?:word="(.*?)"\s+)?find="(.*?)"\s+replace="(.*?)"\s*\/?>/g,
+		regExpMatch, regExpFind, msg;
 	while ( (regExpMatch = regExp.exec( text )) !== null) {
 		// check if this is a valid regexp
-		var regExpFind;
 		try {
 			regExpFind = new RegExp(regExpMatch[2], 'gm');
 		} catch (err) {
-			var msg = 'Expressão regular inválida:\nlocalizar=' +
-					regExpMatch[2] + '\nsubstituir=' + regExpMatch[3];
+			msg = 'Expressão regular inválida:\nlocalizar=' +
+				regExpMatch[2] + '\nsubstituir=' + regExpMatch[3];
 			mw.log( msg );
 			continue;
 		}
@@ -133,3 +138,5 @@ if( $.inArray( mw.config.get( 'wgAction' ), [ 'edit', 'submit' ]) !== -1 ) {
 		loadTypoFixRules( 'Project:AutoWikiBrowser/Typos' );
 	} );
 }
+
+});
