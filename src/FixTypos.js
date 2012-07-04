@@ -7,7 +7,7 @@
  */
 /*jslint browser: true, white: true, continue: true, plusplus: true, regexp: true*/
 /*global jQuery, mediaWiki */
-( function ( $, mw /* , undefined */ ) {
+( function ( $, mw ) {
 'use strict';
 
 var	typoRulesFind = [],
@@ -114,7 +114,6 @@ function processText( text ) {
 function loadTypoFixRules( page ) {
 	var api = new mw.Api();
 	api.get( {
-		action: 'query',
 		prop: 'revisions',
 		rvprop: 'content',
 		rvlimit: 1,
