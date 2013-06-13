@@ -112,8 +112,7 @@ function processText( text ) {
  * Load and parse RegExTypoFix rules
  */
 function loadTypoFixRules( page ) {
-	var api = new mw.Api();
-	api.get( {
+	( new mw.Api() ).get( {
 		prop: 'revisions',
 		rvprop: 'content',
 		rvlimit: 1,
