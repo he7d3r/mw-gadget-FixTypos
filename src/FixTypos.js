@@ -92,10 +92,10 @@ function processText( text ) {
 	}
 
 	// display typo fix button
-	if (typoRulesFind.length > 0) {
+	if ( typoRulesFind.length > 0 ) {
 		/* Check if we are in edit mode and the required modules are available and then customize the toolbar */
-		if ($.inArray(mw.config.get('wgAction'), ['edit', 'submit']) !== -1 ) {
-			if ( mw.user.options.get('usebetatoolbar') ) {
+		if ( $.inArray( mw.config.get('wgAction'), [ 'edit', 'submit' ] ) !== -1 ) {
+			if ( mw.user.options.get('usebetatoolbar') && mw.user.options.get( 'showtoolbar' ) ) {
 				mw.loader.using( 'ext.wikiEditor.toolbar', function () {
 					$( addButton );
 				} );
