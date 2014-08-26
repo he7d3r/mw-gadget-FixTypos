@@ -98,16 +98,14 @@ function processText( text ) {
 		if ( $.inArray( mw.config.get('wgAction'), [ 'edit', 'submit' ] ) !== -1 ) {
 			// This can be the string "0" if the user disabled the preference ([[bugzilla:52542#c3]])
 			/*jshint eqeqeq:false*/
-			if ( mw.user.options.get( 'showtoolbar' ) == 1 ) {
-				if ( mw.user.options.get( 'usebetatoolbar' ) == 1 ) {
-					$.when(
-						mw.loader.using( 'ext.wikiEditor.toolbar' ),
-						$.ready
-					).then( addMyButton );
-				} /* else {
-					// TODO: Add the button to the old toolbar
-				} */
-			}
+			if ( mw.user.options.get( 'usebetatoolbar' ) == 1 ) {
+				$.when(
+					mw.loader.using( 'ext.wikiEditor.toolbar' ),
+					$.ready
+				).then( addMyButton );
+			} /* else if ( mw.user.options.get( 'showtoolbar' ) == 1 ) {
+				// TODO: Add the button to the old toolbar
+			} */
 		}
 	} else {
 		mw.log( 'A lista de regras de correções tipográficas está vazia.' );
