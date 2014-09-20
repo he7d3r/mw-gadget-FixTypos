@@ -4,7 +4,6 @@
  * @author: [[w:en:User:Cacycle/wikEd.js]]
  * @author: Helder (https://github.com/he7d3r)
  * @license: CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0/>
- * @source: [[Special:GlobalUsage/User:Helder.wiki/Tools/FixTypos.js]] ([[File:User:Helder.wiki/Tools/FixTypos.js]])
  */
 /*jslint browser: true, white: true, continue: true, plusplus: true, regexp: true*/
 /*global jQuery, mediaWiki */
