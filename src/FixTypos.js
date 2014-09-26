@@ -5,8 +5,6 @@
  * @author: Helder (https://github.com/he7d3r)
  * @license: CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0/>
  */
-/*jslint browser: true, white: true, continue: true, plusplus: true, regexp: true*/
-/*global jQuery, mediaWiki */
 ( function ( $, mw ) {
 'use strict';
 
@@ -105,6 +103,7 @@ function processText( text ) {
 			} /* else if ( mw.user.options.get( 'showtoolbar' ) == 1 ) {
 				// TODO: Add the button to the old toolbar
 			} */
+			/*jshint eqeqeq:true*/
 		}
 	} else {
 		mw.log( 'A lista de regras de correções tipográficas está vazia.' );
