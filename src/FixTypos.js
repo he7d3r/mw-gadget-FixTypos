@@ -93,7 +93,7 @@
 		if ( typoRulesFind.length > 0 ) {
 			/* Check if we are in edit mode and the required modules are available and then customize the toolbar */
 			if ( $.inArray( mw.config.get('wgAction'), [ 'edit', 'submit' ] ) !== -1 ) {
-				// This can be the string "0" if the user disabled the preference ([[bugzilla:52542#c3]])
+				// This can be the string "0" if the user disabled the preference ([[phab:T54542#555387]])
 				/*jshint eqeqeq:false*/
 				if ( mw.user.options.get( 'usebetatoolbar' ) == 1 ) {
 					$.when(
