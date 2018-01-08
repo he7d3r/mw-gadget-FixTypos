@@ -97,7 +97,7 @@
 				/*jshint eqeqeq:false*/
 				if ( mw.user.options.get( 'usebetatoolbar' ) == 1 ) {
 					$.when(
-						mw.loader.using( 'ext.wikiEditor.toolbar' ),
+						mw.loader.using( 'ext.wikiEditor' ),
 						$.ready
 					).then( addMyButton );
 				} /* else if ( mw.user.options.get( 'showtoolbar' ) == 1 ) {
